@@ -25,11 +25,13 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
     }
 
     post {
 
         success {
+
             echo '================================='
             echo 'SAUCEDEMO'
             echo 'Website: https://www.saucedemo.com'
@@ -38,6 +40,7 @@ pipeline {
         }
 
         failure {
+
             echo '================================='
             echo 'SAUCEDEMO'
             echo 'Website: https://www.saucedemo.com'
@@ -46,3 +49,4 @@ pipeline {
         }
     }
 }
+
