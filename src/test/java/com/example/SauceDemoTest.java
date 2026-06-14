@@ -16,23 +16,44 @@ public class SauceDemoTest {
 
         ChromeOptions options = new ChromeOptions();
 
+        // Use installed Chrome
         options.setBinary("/opt/google/chrome/google-chrome");
 
-        options.addArguments("--headless=new");
+        // Jenkins/Linux compatibility
+        options.addArguments("--headless");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
+        options.addArguments("--disable-extensions");
         options.addArguments("--remote-allow-origins=*");
 
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = null;
 
-        driver.get("https://www.saucedemo.com");
+        try {
 
-        System.out.println("Website : https://www.saucedemo.com");
-        System.out.println("Title : " + driver.getTitle());
+            driver = new ChromeDriver(options);
 
-        driver.quit();
+            driver.get("https://www.saucedemo.com");
 
-        System.out.println("SAUCEDEMO OPENED SUCCESSFULLY");
+            System.out.println("Website : https://www.saucedemo.com");
+            System.out.println("Title   : " + driver.getTitle());
+            System.out.println("URL     : " + driver.getCurrentUrl());
+
+            System.out.println("SAUCEDEMO OPENED SUCCESSFULLY");
+
+        } catch (Exception e) {
+
+            System.out.println("ERROR OCCURRED");
+            System.out.println(e.getMessage());
+
+            throw e;
+
+        } finally {
+
+            if (driver != null) {
+                driver.quit();
+            }
+        }
     }
 }
+
