@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class SauceDemoTest {
 
     @Test
-    public void openSauceDemo() throws Exception {
+    public void openSauceDemo() {
 
         System.out.println("=================================");
         System.out.println("SAUCEDEMO");
@@ -16,17 +16,21 @@ public class SauceDemoTest {
 
         ChromeOptions options = new ChromeOptions();
 
-        options.setBinary("/opt/google/chrome/google-chrome");
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-gpu");
 
         WebDriver driver = new ChromeDriver(options);
 
         driver.get("https://www.saucedemo.com");
 
+        System.out.println("Website : https://www.saucedemo.com");
         System.out.println("Title : " + driver.getTitle());
-        System.out.println("URL   : " + driver.getCurrentUrl());
-
-        Thread.sleep(5000);
+        System.out.println("URL : " + driver.getCurrentUrl());
 
         driver.quit();
+
+        System.out.println("SAUCEDEMO OPENED SUCCESSFULLY");
     }
 }
